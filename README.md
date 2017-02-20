@@ -10,4 +10,6 @@ The password can be modified to have up to 3 numbers and up to 3 symbols added, 
 
 
 ![xkcd](https://github.com/alexkenan/passwordgen/blob/master/pics/password_strength.png?raw=true)
+
+
 [xkcd source](http://xkcd.com/936/)
