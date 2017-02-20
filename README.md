@@ -7,4 +7,7 @@ This script uses `adjectives.txt` and `nouns.txt` to build a randomly-generated 
 
 The password can be modified to have up to 3 numbers and up to 3 symbols added, as well as having random capitalization.
 
+
+
 ![xkcd](https://github.com/alexkenan/passwordgen/blob/master/pics/password_strength.png?raw=true)
+[xkcd source](http://xkcd.com/936/)
