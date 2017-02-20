@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.5
 """
 Random password generator inspired by Gfycat
 """
@@ -64,7 +65,7 @@ def symbols(adjective1, noun1, adjective2, noun2, num) -> str:
     :return: String
     """
     list_nums = []
-    syms = '! @#$%^&*,.;:'
+    syms = '!@#$%^&*,.;:'
     for __ in range(num):
         list_nums.append(random.SystemRandom().choice(syms))
 
@@ -90,7 +91,7 @@ def do_everything(adjective1, noun1, adjective2, noun2, num_num, num_sym) -> str
     """
     list_nums = []
     list_syms = []
-    syms = '! @#$%^&*,.;:'
+    syms = '!@#$%^&*,.;:'
     for __ in range(num_sym):
         list_syms.append(random.SystemRandom().choice(syms))
     for __ in range(num_num):
@@ -193,7 +194,7 @@ def mainprogram(num_nums=0, num_syms=0) -> str:
     elif not numbersgen and symbolsgen:
         return symbols(adj1, noun1, adj2, noun2, num_syms)
     else:
-        return '{}{}{}{}'.format(adj1, noun1, adj2, noun2)
+        return '{} {} {} {}'.format(adj1, noun1, adj2, noun2)
 
 
 #      GUI Stuff here
