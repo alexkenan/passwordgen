@@ -2,9 +2,13 @@
 """
 Random password generator inspired by Gfycat
 """
-import random
+#####################################
+#    LAST UPDATED     15 APR 2020   #
+#####################################
+import secrets
 import os
 import sys
+from appJar import gui
 
 
 def load_adjectives() -> list:
@@ -31,7 +35,7 @@ def load_nouns() -> list:
     return list_nouns
 
 
-def numbers(adjective1, noun1, adjective2, noun2, num) -> str:
+def numbers(adjective1: str, noun1: str, adjective2: str, noun2: str, num: int) -> str:
     """
     Insert 1 number between each word (insert 3 numbers total)
     :param adjective1: First adjective
@@ -43,18 +47,17 @@ def numbers(adjective1, noun1, adjective2, noun2, num) -> str:
     """
     list_nums = []
     for __ in range(num):
-        list_nums.append(random.SystemRandom().randint(0, 9))
+        list_nums.append(str(secrets.randbelow(10)))
 
     if len(list_nums) == 1:
-        return '{}{}{}{}{}'.format(adjective1, noun1, list_nums[0], adjective2, noun2)
+        return ''.join((adjective1, noun1, list_nums[0], adjective2, noun2))
     elif len(list_nums) == 2:
-        return '{}{}{}{}{}{}'.format(adjective1, noun1, list_nums[0], adjective2, noun2, list_nums[1],)
+        return ''.join((adjective1, noun1, list_nums[0], adjective2, noun2, list_nums[1]))
     else:
-        return '{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], noun1,
-                                       list_nums[1], adjective2, list_nums[2], noun2)
+        return ''.join((adjective1, list_nums[0], noun1, list_nums[1], adjective2, list_nums[2], noun2))
 
 
-def symbols(adjective1, noun1, adjective2, noun2, num) -> str:
+def symbols(adjective1: str, noun1: str, adjective2: str, noun2: str, num: int) -> str:
     """
     Insert "num" punctuation symbols between each word
     :param adjective1: First adjective
@@ -67,18 +70,17 @@ def symbols(adjective1, noun1, adjective2, noun2, num) -> str:
     list_nums = []
     syms = '!@#$%^&*,.;:'
     for __ in range(num):
-        list_nums.append(random.SystemRandom().choice(syms))
+        list_nums.append(secrets.choice(syms))
 
     if len(list_nums) == 1:
-        return '{}{}{}{}{}'.format(adjective1, noun1, list_nums[0], adjective2, noun2)
+        return ''.join((adjective1, noun1, list_nums[0], adjective2, noun2))
     elif len(list_nums) == 2:
-        return '{}{}{}{}{}{}'.format(adjective1, list_nums[0], noun1, adjective2, list_nums[1], noun2)
+        return ''.join((adjective1, list_nums[0], noun1, adjective2, list_nums[1], noun2))
     else:
-        return '{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], noun1,
-                                       list_nums[1], adjective2, list_nums[2], noun2)
+        return ''.join((adjective1, list_nums[0], noun1, list_nums[1], adjective2, list_nums[2], noun2))
 
 
-def do_everything(adjective1, noun1, adjective2, noun2, num_num, num_sym) -> str:
+def do_everything(adjective1: str, noun1: str, adjective2: str, noun2: str, num_num: int, num_sym: int) -> str:
     """
     Insert "num" punctuation symbols between each word
     :param adjective1: First adjective
@@ -93,53 +95,44 @@ def do_everything(adjective1, noun1, adjective2, noun2, num_num, num_sym) -> str
     list_syms = []
     syms = '!@#$%^&*,.;:'
     for __ in range(num_sym):
-        list_syms.append(random.SystemRandom().choice(syms))
+        list_syms.append(secrets.choice(syms))
     for __ in range(num_num):
-        list_nums.append(random.SystemRandom().randint(0, 9))
+        list_nums.append(str(secrets.randbelow(10)))
 
     if len(list_nums) == 1 and len(list_syms) == 1:
-        return '{}{}{}{}{}{}'.format(adjective1, noun1, list_nums[0], list_syms[0], adjective2, noun2)
+        return ''.join((adjective1, noun1, list_nums[0], list_syms[0], adjective2, noun2))
     elif len(list_nums) == 2 and len(list_syms) == 1:
-        return '{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], noun1, list_syms[0],
-                                       adjective2, list_nums[1], noun2)
+        return ''.join((adjective1, list_nums[0], noun1, list_syms[0], adjective2, list_nums[1], noun2))
     elif len(list_nums) == 2 and len(list_syms) == 2:
-        return '{}{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], list_syms[0], noun1,
-                                         adjective2, list_nums[1], list_syms[1], noun2)
+        return ''.join((adjective1, list_nums[0], list_syms[0], noun1, adjective2, list_nums[1], list_syms[1], noun2))
     elif len(list_nums) == 1 and len(list_syms) == 2:
-        return '{}{}{}{}{}{}{}'.format(adjective1, list_syms[0], noun1, list_nums[0],
-                                       adjective2, list_syms[1], noun2)
+        return ''.join((adjective1, list_syms[0], noun1, list_nums[0], adjective2, list_syms[1], noun2))
     elif len(list_nums) == 3 and len(list_syms) == 1:
-        return '{}{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], noun1,
-                                         list_nums[1], list_syms[0], adjective2,
-                                         list_nums[2], noun2)
+        return ''.join((adjective1, list_nums[0], noun1, list_nums[1], list_syms[0], adjective2, list_nums[2], noun2))
     elif len(list_nums) == 3 and len(list_syms) == 2:
-        return '{}{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], list_syms[0], noun1,
-                                           list_nums[1], adjective2,
-                                           list_nums[2], list_syms[1], noun2)
+        return ''.join((adjective1, list_nums[0], list_syms[0], noun1, list_nums[1], adjective2, list_nums[2],
+                        list_syms[1], noun2))
     elif len(list_nums) == 2 and len(list_syms) == 3:
-        return '{}{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], list_syms[0], noun1,
-                                           list_syms[1], adjective2,
-                                           list_nums[1], list_syms[2], noun2)
+        return ''.join((adjective1, list_nums[0], list_syms[0], noun1,list_syms[1], adjective2,
+                        list_nums[1], list_syms[2], noun2))
     elif len(list_nums) == 1 and len(list_syms) == 3:
-        return '{}{}{}{}{}{}{}{}'.format(adjective1, list_syms[0], noun1,
-                                         list_syms[1], list_nums[0], adjective2,
-                                         list_syms[2], noun2)
+        return ''.join((adjective1, list_syms[0], noun1, list_syms[1], list_nums[0], adjective2,
+                        list_syms[2], noun2))
     elif len(list_nums) == 3 and len(list_syms) == 3:
-        return '{}{}{}{}{}{}{}{}{}'.format(adjective1, list_nums[0], list_syms[0], noun1,
-                                           list_nums[1], list_syms[1], adjective2,
-                                           list_nums[2], list_syms[2], noun2)
+        return ''.join((adjective1, list_nums[0], list_syms[0], noun1, list_nums[1], list_syms[1], adjective2,
+                        list_nums[2], list_syms[2], noun2))
     else:
         return 'Error'
 
 
-def random_uppercase(password) -> str:
+def random_uppercase(password: str) -> str:
     """
     Randomly capitalize some letters in the password
     :param password: Password returned by mainprogram
     :return: String of the password with stuff randomly capitalized
     """
     def randomupper(c):
-        if random.random() > random.SystemRandom().randint(0, 1E7)/1E7:
+        if secrets.randbelow(int(1E99)) > secrets.randbelow(int(1E99)):
             return c.upper()
         return c.lower()
 
@@ -163,19 +156,19 @@ def runstuff():
     app.setLabelRelief('pass3', "sunken")
 
 
-def mainprogram(num_nums=0, num_syms=0) -> str:
+def mainprogram(num_nums: int=0, num_syms: int=0) -> str:
     """
     Join two adjectives and two nouns
     :param num_nums: Number of numbers
     :param num_syms: number of symbols
     :return: Randomly generated password phrase
     """
-    ADJECTIVES = load_adjectives()
-    NOUNS = load_nouns()
-    adj1 = random.choice(ADJECTIVES)
-    adj2 = random.choice(ADJECTIVES)
-    noun1 = random.choice(NOUNS)
-    noun2 = random.choice(NOUNS)
+    adjectives = load_adjectives()
+    nouns = load_nouns()
+    adj1 = secrets.choice(adjectives)
+    adj2 = secrets.choice(adjectives)
+    noun1 = secrets.choice(nouns)
+    noun2 = secrets.choice(nouns)
 
     if num_nums > 0:
         numbersgen = True
@@ -194,20 +187,18 @@ def mainprogram(num_nums=0, num_syms=0) -> str:
     elif not numbersgen and symbolsgen:
         return symbols(adj1, noun1, adj2, noun2, num_syms)
     else:
-        return '{} {} {} {}'.format(adj1, noun1, adj2, noun2)
+        return ' '.join((adj1, noun1, adj2, noun2))
 
 
 #      GUI Stuff here
-
-
-def press(btn):
+def press(btn: str) -> None:
     if btn == "Cancel":
         app.stop()
     else:
         runstuff()
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     if len(sys.argv) == 3:
         try:
             one = int(sys.argv[1])
@@ -216,7 +207,6 @@ if __name__ == '__main__':
         except ValueError:
             print('Pass two integers as the arguments!')
     else:
-        from appJar import gui
         app = gui("Password Generator", "450x581")
         app.setFont(16)
         app.addLabel("title", "Random Password Generator", 0, 0, 3)  # Row 0,Column 0,Span 2
